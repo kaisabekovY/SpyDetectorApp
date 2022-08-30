@@ -16,6 +16,7 @@ struct ContentView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fill)
                 .ignoresSafeArea()
+            
             VStack(){
                     HStack{
                         Spacer()
@@ -62,8 +63,9 @@ struct ContentView: View {
                                         .frame(width: 120.0, height:200.0)
                                         .foregroundColor(Color.white)
                                         .cornerRadius(25, antialiased: true)
-                                    Text("Red")
+                                    Text("Green")
                                         .foregroundColor(Color.red)
+                                        .bold()
                                 }
                             }
                             Spacer()
@@ -83,6 +85,7 @@ struct ContentView: View {
                                         .cornerRadius(25, antialiased: true)
                                     Text("Green")
                                         .foregroundColor(Color.green)
+                                        .bold()
                                 }
                                 
                                 
@@ -94,28 +97,43 @@ struct ContentView: View {
                     Spacer()
                     HStack{
                         Spacer()
-                        Text("No")
+                        Button(action: {
+                            print("Hello, World")
+                        }, label: {
+                            ZStack{
+                                Rectangle()
+                                    .frame(width: 100.0, height: 50.0)
+                                    .foregroundColor(Color.black)
+                                    .cornerRadius(10)
+                                    .opacity(0.4)
+                                Text("No")
+                                    .foregroundColor(Color.white)
+                                    
+                                    
+                            }
+                        })
                         Spacer()
-                        Text("Yes")
+                        Button(action: {
+                            print("Hello, World")
+                        }, label: {
+                            ZStack{
+                                Rectangle()
+                                    .frame(width: 100.0, height: 50.0)
+                                    .foregroundColor(Color.black)
+                                    .cornerRadius(10)
+                                    .opacity(0.4)
+                                Text("YES")
+                                    .foregroundColor(Color.white)
+                                    
+                                    
+                            }
+                        })
                         Spacer()
                     
                     }
-                
-                    
-                    
-                    
-                    
             }
-                
-                
-                
-                
-            }
-            Spacer()
-            
-            
-
         }
+    }
 }
 
 
