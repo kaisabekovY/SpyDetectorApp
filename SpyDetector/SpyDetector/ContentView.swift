@@ -8,8 +8,58 @@
 import SwiftUI
 
 struct ContentView: View {
-    var body: some View {
+    //Set of colors
+    @State var colors = [Color.black, Color.red, Color.green, Color.blue, Color.purple]
+    @State var meanings = ["Black","Red","Green","Blue","Purple"]
+    //Score
+    @State var score = 0
+    //Pics to change
+    @State var success = "success"
+    //Indexes
+    @State var leftColor = 0
+    @State var leftMeaning = 0
+    @State var rightColor = 0
+    @State var rightMeaning = 0
+    @State var randSet = 0...4
+    
+    
+    
+    
+    func plusScoreNo(){
+        if leftMeaning != rightColor{
+            success = "success"
+            score += 15
+            newSetOfColors()
+        }else{
+            success = "fail"
+            score = max(0, score - 5)
+            newSetOfColors()
+        }
+    }
+    
+    
+    func plusScoreYes(){
+        if leftMeaning == rightColor{
+            success = "success"
+            score += 15
+            newSetOfColors()
+        }else{
+            success = "fail"
+            score = max(0, score - 5)
+            newSetOfColors()
+        }
+    }
+    
+    func newSetOfColors(){
+        leftColor = Int.random(in: randSet)
+        leftMeaning = Int.random(in: randSet)
+        rightColor = Int.random(in: randSet)
+        rightMeaning = Int.random(in: randSet)
         
+    }
+    
+    
+    var body: some View {
         
         ZStack{
             Image("background")
@@ -21,19 +71,21 @@ struct ContentView: View {
                     HStack{
                         Spacer()
                         VStack{
-                            Text("SCORE")
+                            Text("Score")
                                 .foregroundColor(Color.white)
                                 .bold()
-                            Text("100")
+                            Text(String(score))
                                 .foregroundColor(Color.white)
                             
                         }
                         Spacer()
+        //Timer
                         VStack{
                             Text("TIME")
                                 .foregroundColor( Color.white)
                                 .bold()
-                            Text("33")
+                            Text("0")
+                            
                                 .foregroundColor(Color.white)
                             
                         }
@@ -42,10 +94,11 @@ struct ContentView: View {
                         
                         
                     }
+                //Compare meaning and color
                     Text("Does the meaning match color?")
                     .foregroundColor(Color.white).font(.largeTitle).fontWeight(.heavy).multilineTextAlignment(.center).padding(.vertical, 50.0)
                     ZStack{
-                        Image("success")
+                        Image(success)
                         HStack{
                             Spacer()
                             VStack{
@@ -63,8 +116,8 @@ struct ContentView: View {
                                         .frame(width: 120.0, height:200.0)
                                         .foregroundColor(Color.white)
                                         .cornerRadius(25, antialiased: true)
-                                    Text("Green")
-                                        .foregroundColor(Color.red)
+                                    Text(meanings[leftMeaning])
+                                        .foregroundColor(colors[leftColor])
                                         .bold()
                                 }
                             }
@@ -83,8 +136,8 @@ struct ContentView: View {
                                         .frame(width: 120.0, height:200.0)
                                         .foregroundColor(Color.white)
                                         .cornerRadius(25, antialiased: true)
-                                    Text("Green")
-                                        .foregroundColor(Color.green)
+                                    Text(meanings[rightMeaning])
+                                        .foregroundColor(colors[rightColor])
                                         .bold()
                                 }
                                 
@@ -95,10 +148,14 @@ struct ContentView: View {
                     
                     }
                     Spacer()
+                //Buttons
                     HStack{
                         Spacer()
-                        Button(action: {
-                            print("Hello, World")
+                        Button(action:{
+                            plusScoreNo()
+
+                                
+                                
                         }, label: {
                             ZStack{
                                 Rectangle()
@@ -114,8 +171,8 @@ struct ContentView: View {
                         })
                         Spacer()
                         Button(action: {
-                            print("Hello, World")
-                        }, label: {
+                            plusScoreYes()
+                            }, label: {
                             ZStack{
                                 Rectangle()
                                     .frame(width: 100.0, height: 50.0)
